@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lee.business.address.mapper.CityMapper">
+    <select id="getCityList" parameterType="java.util.Map" resultType="java.util.Map">
+        SELECT
+        t.ID AS cityId,
+        t.CITY_NAME AS cityName,
+        t.CITY_CODE AS cityCode,
+        t.CITY_PY AS cityPy,
+        t.CITY_PY_CAP AS cityPyCap,
+        t.AREA_CODE AS areaCode,
+        t.ZIP AS zip,
+        t.PROVINCE_ID AS provinceId,
+        t.HOT_CITY AS hotCity,
+        t.ISVALID AS isvalid,
+        t.pro_py AS proPy
+        FROM
+        (
+        SELECT
+        a.ID,
+        a.CITY_NAME,
+        a.CITY_CODE,
+        a.CITY_PY,
+        a.CITY_PY_CAP,
+        a.AREA_CODE,
+        a.ZIP,
+        a.PROVINCE_ID,
+        a.HOT_CITY,
+        a.ISVALID,
+        SUBSTR(a.CITY_PY_CAP, 1, 1) AS pro_py
+        FROM
+        T_SS_CITY a
+        ) t
+        <where>
+            <if test="proPy != null and proPy != ''">
+                and t.pro_py = #{proPy}
+            </if>
+        </where>
+        order by t.CITY_NAME
+    </select>
+    <select id="getCityByName" resultType="string" parameterType="string">
+        select CITY_NAME from T_SS_CITY where CITY_NAME=#{name}
+    </select>
+
+    <select id="selectByName" resultMap="BaseResultMap" parameterType="map">
+        select
+        <include refid="Base_Column_List"/>
+        from T_SS_CITY a
+        where a.ISVALID = '1'
+        and a.PROVINCE_ID = #{provinceId,jdbcType=INTEGER}
+        and a.CITY_NAME = #{cityName,jdbcType=VARCHAR}
+    </select>
+</mapper>

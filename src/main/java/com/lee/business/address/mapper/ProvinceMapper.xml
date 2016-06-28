@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lee.business.address.mapper.ProvinceMapper" >
+  <resultMap id="BaseResultMap" type="com.lee.business.address.model.Province" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="PROVINCE_NAME" property="provinceName" jdbcType="VARCHAR" />
+    <result column="PROVINCE_CODE" property="provinceCode" jdbcType="VARCHAR" />
+    <result column="PROVINCE_PY" property="provincePy" jdbcType="VARCHAR" />
+    <result column="PROVINCE_PY_CAP" property="provincePyCap" jdbcType="VARCHAR" />
+    <result column="DIRECT_CITY" property="directCity" jdbcType="VARCHAR" />
+    <result column="HOT_CITY" property="hotCity" jdbcType="VARCHAR" />
+    <result column="ISVALID" property="isvalid" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, PROVINCE_NAME, PROVINCE_CODE, PROVINCE_PY, PROVINCE_PY_CAP, DIRECT_CITY, HOT_CITY, 
+    ISVALID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_SS_PROVINCE
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from T_SS_PROVINCE
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lee.business.address.model.Province" >
+    insert into T_SS_PROVINCE (ID, PROVINCE_NAME, PROVINCE_CODE, 
+      PROVINCE_PY, PROVINCE_PY_CAP, DIRECT_CITY, 
+      HOT_CITY, ISVALID)
+    values (#{id,jdbcType=INTEGER}, #{provinceName,jdbcType=VARCHAR}, #{provinceCode,jdbcType=VARCHAR}, 
+      #{provincePy,jdbcType=VARCHAR}, #{provincePyCap,jdbcType=VARCHAR}, #{directCity,jdbcType=VARCHAR}, 
+      #{hotCity,jdbcType=VARCHAR}, #{isvalid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lee.business.address.model.Province" >
+    insert into T_SS_PROVINCE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="provinceName != null" >
+        PROVINCE_NAME,
+      </if>
+      <if test="provinceCode != null" >
+        PROVINCE_CODE,
+      </if>
+      <if test="provincePy != null" >
+        PROVINCE_PY,
+      </if>
+      <if test="provincePyCap != null" >
+        PROVINCE_PY_CAP,
+      </if>
+      <if test="directCity != null" >
+        DIRECT_CITY,
+      </if>
+      <if test="hotCity != null" >
+        HOT_CITY,
+      </if>
+      <if test="isvalid != null" >
+        ISVALID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="provinceName != null" >
+        #{provinceName,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceCode != null" >
+        #{provinceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="provincePy != null" >
+        #{provincePy,jdbcType=VARCHAR},
+      </if>
+      <if test="provincePyCap != null" >
+        #{provincePyCap,jdbcType=VARCHAR},
+      </if>
+      <if test="directCity != null" >
+        #{directCity,jdbcType=VARCHAR},
+      </if>
+      <if test="hotCity != null" >
+        #{hotCity,jdbcType=VARCHAR},
+      </if>
+      <if test="isvalid != null" >
+        #{isvalid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lee.business.address.model.Province" >
+    update T_SS_PROVINCE
+    <set >
+      <if test="provinceName != null" >
+        PROVINCE_NAME = #{provinceName,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceCode != null" >
+        PROVINCE_CODE = #{provinceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="provincePy != null" >
+        PROVINCE_PY = #{provincePy,jdbcType=VARCHAR},
+      </if>
+      <if test="provincePyCap != null" >
+        PROVINCE_PY_CAP = #{provincePyCap,jdbcType=VARCHAR},
+      </if>
+      <if test="directCity != null" >
+        DIRECT_CITY = #{directCity,jdbcType=VARCHAR},
+      </if>
+      <if test="hotCity != null" >
+        HOT_CITY = #{hotCity,jdbcType=VARCHAR},
+      </if>
+      <if test="isvalid != null" >
+        ISVALID = #{isvalid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lee.business.address.model.Province" >
+    update T_SS_PROVINCE
+    set PROVINCE_NAME = #{provinceName,jdbcType=VARCHAR},
+      PROVINCE_CODE = #{provinceCode,jdbcType=VARCHAR},
+      PROVINCE_PY = #{provincePy,jdbcType=VARCHAR},
+      PROVINCE_PY_CAP = #{provincePyCap,jdbcType=VARCHAR},
+      DIRECT_CITY = #{directCity,jdbcType=VARCHAR},
+      HOT_CITY = #{hotCity,jdbcType=VARCHAR},
+      ISVALID = #{isvalid,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

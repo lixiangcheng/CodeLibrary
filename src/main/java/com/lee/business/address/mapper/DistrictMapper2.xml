@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lee.business.address.mapper.DistrictMapper" >
+    <select id="getDistrictList" parameterType="java.util.Map" resultType="java.util.Map">
+    SELECT
+			t.ID as districtId,
+			t.DISTRICT_NAME AS districtName,
+			t.DISTRICT_CODE AS districtCode,
+			t.DISTRICT_PY AS districtPy,
+			t.DISTRICT_PY_CAP AS districtPyCap,
+			t.AREA_CODE AS areaCode,
+			t.ZIP AS zip,
+			t.PROVINCE_ID AS provinceId,
+			t.CITY_ID AS cityId,
+			t.HOT_CITY AS hotCity,
+			t.ISVALID AS isvalid
+		FROM
+			T_SS_DISTRICT t
+     <where>
+        <if test="cityId != null and cityId != ''">
+			and t.CITY_ID = #{cityId}
+		</if>
+     </where>
+      order by t.DISTRICT_NAME 
+   </select>
+
+
+	<select id="selectByName" resultMap="BaseResultMap" parameterType="map" >
+		select
+		<include refid="Base_Column_List" />
+		from T_SS_DISTRICT a
+		where a.ISVALID = '1'
+		and a.CITY_ID = #{cityId,jdbcType=INTEGER}
+		and a.DISTRICT_NAME = #{districtName,jdbcType=VARCHAR}
+	</select>
+</mapper>
