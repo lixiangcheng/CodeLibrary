@@ -3,5 +3,37 @@
  "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
 <web-app>
+  <!--标明web应用的名字,作用不大
+  百度解释:如果使用工具编辑部署描述符，display-name元素包含的就是XML编辑器显示的名称。-->
   <display-name>Archetype Created Web Application</display-name>
+
+  <servlet>
+    <!-- servlet名称，与servlet-mapping中的servlet-name必须一致 -->
+    <servlet-name>DispatcherServlet</servlet-name>
+    <!--servlet class的位置咯-->
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <!--为servlet提供初始化参数.
+    在这里提供是为了servlet能定位到实际的文件位置,不然servlet默认在/WEB-INF/下面找-->
+    <init-param>
+      <!--contextConfigLocation 名称不能变
+      查看源代码,找到ContextLoaderListener 再跟踪到ContextLoader ,初始化WebApplicationContext 会使用到这个参数
+      (在Listener调用到ContextLoaderListener时候才会初始化)-->
+      <param-name>contextConfigLocation</param-name>
+      <param-value>classpath*:springmvc.xml</param-value>
+      <!--classpath：只会到你的class路径中查找找文件;
+          classpath*：不仅包含class路径，还包括jar文件中(class路径)进行查找.-->
+    </init-param>
+    <!--
+        表示 当前 servlet 被加载的顺序
+        只有>=0的时候才会在容器启动的时候加载(值越小 越早加载)
+        如果小于0或者没有写.只会在该servlet使用到的时候才会调用.
+    -->
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DispatcherServlet</servlet-name>
+    <url-pattern>*.htm</url-pattern>
+  </servlet-mapping>
+  <!--以上是一个整体,先找到url-pattern 在找servlet-name 定位到上面的servlet-name 进去指定的servlet-class-->
+
 </web-app>
