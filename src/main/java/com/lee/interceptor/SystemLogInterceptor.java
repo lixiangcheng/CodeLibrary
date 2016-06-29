@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.StringTokenizer;
 
 /**
- * 系统日志，每一步的操作记录
+ * 绯荤粺鏃ュ織锛屾瘡涓�姝ョ殑鎿嶄綔璁板綍
  */
 public class SystemLogInterceptor implements HandlerInterceptor {
     private final Logger log = Logger.getLogger(SystemLogInterceptor.class);

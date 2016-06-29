@@ -12,11 +12,11 @@ import java.io.IOException;
  */
 public class DisableUrlSessionFilter implements Filter {
 
-    @Override
+//    @Override
     public void destroy() {
     }
 
-    @Override
+//    @Override
     public void doFilter(ServletRequest request, ServletResponse response,
                          FilterChain chain) throws IOException, ServletException {
         if (!(request instanceof HttpServletRequest)) {
@@ -51,7 +51,7 @@ public class DisableUrlSessionFilter implements Filter {
         chain.doFilter(request, wrappedResponse);
     }
 
-    @Override
+//    @Override
     public void init(FilterConfig filterConfig) throws ServletException {
     }
 }

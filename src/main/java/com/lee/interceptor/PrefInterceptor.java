@@ -7,16 +7,16 @@ import org.apache.log4j.Logger;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * ·½·¨À¹½ØÆ÷¡£
- * »ñÈ¡·½·¨Ö´ĞĞÊ±¼ä
+ * æ–¹æ³•æ‹¦æˆªå™¨ã€‚
+ * è·å–æ–¹æ³•æ‰§è¡Œæ—¶é—´
  * Created by leith on 2016/6/24.
  */
 public class PrefInterceptor implements MethodInterceptor {
 
     Logger logger = Logger.getLogger(PrefInterceptor.class.getName());
     private static ConcurrentHashMap<String, MethodStats> methodStats = new ConcurrentHashMap<String, MethodStats>();
-    private static long statLogFrequency = 10;//ÏŞ¶¨¶àÉÙ´Î»ã×Ü
-    private static long methodWarningThreshold = 100;//³¬¹ı¶àÉÙms¾¯¸æ
+    private static long statLogFrequency = 10;//é™å®šå¤šå°‘æ¬¡æ±‡æ€»
+    private static long methodWarningThreshold = 100;//è¶…è¿‡å¤šå°‘msè­¦å‘Š
 
     public Object invoke(MethodInvocation method) throws Throwable {
         long start = System.currentTimeMillis();
@@ -28,8 +28,8 @@ public class PrefInterceptor implements MethodInterceptor {
     }
 
     /**
-     * @param methodName  ·½·¨
-     * @param elapsedTime ·½·¨Ö´ĞĞµÄÊ±¼ä
+     * @param methodName  æ–¹æ³•
+     * @param elapsedTime æ–¹æ³•æ‰§è¡Œçš„æ—¶é—´
      */
     private void updateStats(String methodName, long elapsedTime) {
         MethodStats stats = methodStats.get(methodName);
@@ -37,19 +37,19 @@ public class PrefInterceptor implements MethodInterceptor {
             stats = new MethodStats(methodName);
             methodStats.put(methodName, stats);
         }
-        stats.count++;//»ã×Ü´ÎÊı
-        stats.totalTime += elapsedTime;//»ã×ÜÊ±¼ä
+        stats.count++;//æ±‡æ€»æ¬¡æ•°
+        stats.totalTime += elapsedTime;//æ±‡æ€»æ—¶é—´
         if (elapsedTime > stats.maxTime) {
-            stats.maxTime = elapsedTime;//¼ÇÂ¼µ±Ç°×î´óÊ±¼äÏûºÄ
+            stats.maxTime = elapsedTime;//è®°å½•å½“å‰æœ€å¤§æ—¶é—´æ¶ˆè€—
         }
 
-        if (elapsedTime > methodWarningThreshold) {//³¬¹ı ¾¯¸æ
+        if (elapsedTime > methodWarningThreshold) {//è¶…è¿‡ è­¦å‘Š
             logger.warn("method warning: " + methodName + "(), cnt = " + stats.count + ", lastTime = " + elapsedTime + ", maxTime = " + stats.maxTime);
         }
 
-        if (stats.count % statLogFrequency == 0) {//À´Ò»´Î´óµÄ»ã×Ü
-            long avgTime = stats.totalTime / stats.count;//ÔËĞĞ¶àÉÙ´ÎµÄÆ½¾ùÊ±¼ä
-            long runningAvg = (stats.totalTime - stats.lastTotalTime) / statLogFrequency;//ÔËĞĞ statLogFrequency  ´ÎµÄÆ½¾ùÊ±¼ä
+        if (stats.count % statLogFrequency == 0) {//æ¥ä¸€æ¬¡å¤§çš„æ±‡æ€»
+            long avgTime = stats.totalTime / stats.count;//è¿è¡Œå¤šå°‘æ¬¡çš„å¹³å‡æ—¶é—´
+            long runningAvg = (stats.totalTime - stats.lastTotalTime) / statLogFrequency;//è¿è¡Œ statLogFrequency  æ¬¡çš„å¹³å‡æ—¶é—´
             logger.debug("method: " + methodName + "(), cnt = " + stats.count + ", lastTime = " + elapsedTime + ", avgTime = " + avgTime + ", runningAvg = " + runningAvg + ", maxTime = " + stats.maxTime);
 
             //reset the last total time
@@ -59,10 +59,10 @@ public class PrefInterceptor implements MethodInterceptor {
 
     class MethodStats {
         public String methodName;
-        public long count;//×ÜµÄ´ÎÊı
-        public long totalTime;//ËùÓĞ»ã×ÜÊ±¼ä
-        public long lastTotalTime;//µ¹ÊıµÚ¶ş´Î»ã×ÜÊ±¼ä
-        public long maxTime;//ÔËĞĞÖĞ×î´óµÄºÄÊ±
+        public long count;//æ€»çš„æ¬¡æ•°
+        public long totalTime;//æ‰€æœ‰æ±‡æ€»æ—¶é—´
+        public long lastTotalTime;//å€’æ•°ç¬¬äºŒæ¬¡æ±‡æ€»æ—¶é—´
+        public long maxTime;//è¿è¡Œä¸­æœ€å¤§çš„è€—æ—¶
 
         public MethodStats(String methodName) {
             this.methodName = methodName;

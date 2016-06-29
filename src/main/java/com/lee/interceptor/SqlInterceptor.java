@@ -20,9 +20,9 @@ import java.util.Locale;
 import java.util.Properties;
 
 /**
- * ´òÓ¡sqlÖ´ĞĞ¡£
- * Æ´ºÃ²ÎÊı´òÓ¡¡£
- * ²¢Êä³ösqlÖ´ĞĞÊ±¼ä
+ * ç›‘æ§sql
+ * æ‹¼æ¥å¥½sqlå‚æ•°æ‰“å°å‡ºæ¥ï¼Œ
+ * å¹¶ç›‘æ§sqlæ‰§è¡Œæ—¶é—´
  */
 @Intercepts({@org.apache.ibatis.plugin.Signature(type = org.apache.ibatis.executor.Executor.class, method = "update", args = {MappedStatement.class, Object.class}), @org.apache.ibatis.plugin.Signature(type = org.apache.ibatis.executor.Executor.class, method = "query", args = {MappedStatement.class, Object.class, org.apache.ibatis.session.RowBounds.class, org.apache.ibatis.session.ResultHandler.class})})
 public class SqlInterceptor
