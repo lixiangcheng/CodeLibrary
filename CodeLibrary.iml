@@ -11,8 +11,18 @@
         </webroots>
       </configuration>
     </facet>
+    <facet type="Spring" name="Spring">
+      <configuration>
+        <fileset id="fileset" name="Spring Application Context" removed="false">
+          <file>file://$MODULE_DIR$/src/main/resources/oauth/beans-common.xml</file>
+          <file>file://$MODULE_DIR$/src/main/resources/oauth/spring-servlet.xml</file>
+          <file>file://$MODULE_DIR$/src/main/resources/applicationContext.xml</file>
+          <file>file://$MODULE_DIR$/src/main/resources/springmvc.xml</file>
+        </fileset>
+      </configuration>
+    </facet>
   </component>
-  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_5" inherit-compiler-output="false">
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_7" inherit-compiler-output="false">
     <output url="file://$MODULE_DIR$/target/classes" />
     <output-test url="file://$MODULE_DIR$/target/test-classes" />
     <content url="file://$MODULE_DIR$">
@@ -20,9 +30,10 @@
       <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="1.7" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="lib" level="project" />
+    <orderEntry type="library" name="oauth" level="project" />
+    <orderEntry type="library" name="tomcat" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-web:3.2.8.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-aop:3.2.8.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: aopalliance:aopalliance:1.0" level="project" />
@@ -37,7 +48,7 @@
     <orderEntry type="module-library">
       <library name="Maven: com.alibaba:jconsole:1.8.0">
         <CLASSES>
-          <root url="jar://C:/java/jdk1.7/jdk1.7.0_13/lib/jconsole.jar!/" />
+          <root url="jar://C:/java/jdk1.8.0_73/lib/jconsole.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -46,7 +57,7 @@
     <orderEntry type="module-library">
       <library name="Maven: com.alibaba:tools:1.8.0">
         <CLASSES>
-          <root url="jar://C:/java/jdk1.7/jdk1.7.0_13/lib/tools.jar!/" />
+          <root url="jar://C:/java/jdk1.8.0_73/lib/tools.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -59,7 +70,6 @@
     <orderEntry type="library" name="Maven: dom4j:dom4j:1.6.1" level="project" />
     <orderEntry type="library" name="Maven: xml-apis:xml-apis:1.0.b2" level="project" />
     <orderEntry type="library" name="Maven: com.alibaba:fastjson:1.1.39" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: javax.servlet:servlet-api:2.5" level="project" />
     <orderEntry type="library" name="Maven: commons-io:commons-io:1.3.2" level="project" />
     <orderEntry type="library" name="Maven: org.mybatis:mybatis:3.2.3" level="project" />
     <orderEntry type="library" name="Maven: org.mybatis:mybatis-spring:1.2.2" level="project" />
@@ -90,6 +100,8 @@
     <orderEntry type="library" name="Maven: net.sf.jxls:jxls-core:1.0.5" level="project" />
     <orderEntry type="library" name="Maven: net.sourceforge.jexcelapi:jxl:2.6.3" level="project" />
     <orderEntry type="library" name="Maven: org.mybatis.generator:mybatis-generator-core:1.3.2" level="project" />
+    <orderEntry type="library" name="Maven: com.google.code.simple-spring-memcached:spymemcached:2.8.4" level="project" />
+    <orderEntry type="library" name="Maven: org.bouncycastle:bcprov-jdk15on:1.54" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: junit:junit:3.8.1" level="project" />
   </component>
 </module>
