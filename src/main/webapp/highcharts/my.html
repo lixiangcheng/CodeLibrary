@@ -1,0 +1,95 @@
+<<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script id="jquery_183" type="text/javascript" class="library"
+            src="http://sandbox.runjs.cn/js/sandbox/jquery/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="http://code.highcharts.com/highcharts.js"></script>
+    <script type="text/javascript" src="http://code.highcharts.com/maps/modules/map.js"></script>
+    <!--<script src="http://code.highcharts.com/maps/highmaps.js"></script>-->
+    <script type="text/javascript" src="http://code.highcharts.com/maps/modules/data.js"></script>
+    <script type="text/javascript" src="http://code.highcharts.com/maps/modules/drilldown.js"></script>
+    <script type="text/javascript" src="http://sandbox.runjs.cn/uploads/rs/228/zroo4bdf/cn-china-by-peng8.js"></script>
+
+
+    <title>内蒙古</title>
+    <link rel="stylesheet" type="text/css" href="my.css">
+    <script type="text/javascript" src="my.js"></script>
+</head>
+<body>
+<div id="container" style="height: 500px; min-width: 310px; max-width: 800px; margin: 0 auto"></div>
+<script>
+    $(function () {
+        // Prepare random data
+        var data = [];
+        var group1 = [];
+        var dataObject = new Object();
+        $.getJSON('http://data.hcharts.cn/jsonp.php?filename=GeoMap/json/nei_meng_gu.geo.json&callback=?', function (geojson) {
+            group1 = Highcharts.geojson(geojson);
+
+            $.each(group1, function (i) {
+                dataObject.code = group1[i].name;
+                dataObject.value = i;
+                data.push(dataObject);
+            });
+
+            console.log("geojson:" + geojson);
+            console.log("data:" + data);
+
+            $('#container').highcharts('Map', {
+
+                title: {
+                    text: 'highmap中国内蒙古'
+                },
+
+                mapNavigation: {
+                    enabled: true,
+                    buttonOptions: {
+                        verticalAlign: 'bottom'
+                    }
+                },
+
+                colorAxis: {},
+
+                /*series: [{
+                 data: data,
+                 mapData: geojson,
+                 //                joinBy: ['code_hasc', 'code'],
+                 //                name: '内蒙古',
+                 name: '{point.name}',
+                 events:{
+                 show:function(){
+                 alert(1);
+                 }
+                 }
+                 }]*/
+                series: [{
+                    data: group1,
+                    mapData: geojson,
+                    joinBy: ['code_hasc', 'code'],
+                    name: '内蒙古',
+                    states: {
+                        hover: {
+                            color: '#BADA55'
+                        }
+                    },
+                    events: {
+                        click: function () {
+                            alert(1);
+                        },
+                        mouseOver: function () {
+                            alert(2);
+                        },
+                    },
+                    dataLabels: {
+                        enabled: true,
+                        format: '{point.name}'
+                    }
+                }]
+            });
+        });
+    });
+</script>
+
+</body>
+</html>

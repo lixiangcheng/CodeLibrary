@@ -1,0 +1,193 @@
+<<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script id="jquery_183" type="text/javascript" class="library"       src="http://sandbox.runjs.cn/js/sandbox/jquery/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="http://code.highcharts.com/highcharts.js"></script>
+    <script type="text/javascript" src="http://code.highcharts.com/maps/modules/map.js"></script>
+    <!--<script src="http://code.highcharts.com/maps/highmaps.js"></script>-->
+    <script type="text/javascript" src="http://code.highcharts.com/maps/modules/data.js"></script>
+    <script type="text/javascript" src="http://code.highcharts.com/maps/modules/drilldown.js"></script>
+    <script type="text/javascript" src="http://sandbox.runjs.cn/uploads/rs/228/zroo4bdf/cn-china-by-peng8.js"></script>
+
+    <title>内蒙古</title>
+    <link rel="stylesheet" type="text/css" href="my.css">
+    <script type="text/javascript" src="my.js"></script>
+</head>
+<body>
+<div id="container" style="height: 500px; min-width: 310px; max-width: 800px; margin: 0 auto"></div>
+<script>
+    $(function () {
+
+        Highcharts.setOptions({
+            lang:{
+                drillUpText:"返回 > {series.name}"
+            }
+        });
+
+        var data = Highcharts.geojson(Highcharts.maps['countries/cn/custom/cn-all-china']),small = $('#container').width() < 400;
+
+        console.log(data)
+
+        var group1=[];
+        var  group2=[];
+        // 给城市设置随机数据
+        $.each(data, function (i) {
+
+            this.drilldown = this.properties['drill-key'];
+            this.value = i;
+            if(this.properties["cn-name"]=="内蒙古"){
+                group1.push(data[i]);
+            }
+        });
+
+
+        console.log(group1)
+
+        function getPoint(e){
+            console.log(e.point.name);
+        }
+
+
+
+        //初始化地图
+        $('#container').highcharts('Map', {
+
+            chart : {
+                spacingBottom:30,
+
+                events: {
+                    drilldown: function (e) {
+
+                        var chart = this;
+                        // alert('================'); 
+                        var cname=e.point.properties["cn-name"];
+                        //chart.showLoading('<i class="icon-spinner icon-spin icon-3x"></i>');
+                        // 加载城市数据
+                        $.ajax({
+                            type: "GET",
+                            url: "http://data.hcharts.cn/jsonp.php?filename=GeoMap/json/"+ e.point.drilldown+".geo.json",
+                            contentType: "application/json; charset=utf-8",
+                            dataType:'jsonp',
+                            crossDomain: true,
+                            success: function(json) {
+                                data = Highcharts.geojson(json);
+
+                                console.log(data)
+
+                                $.each(data, function (i) {
+
+                                    this.value = i;
+                                    this.events={};
+                                    this.events.click=getPoint;
+                                    //getPoint(this.events);
+
+                                });
+                                chart.hideLoading();
+
+                                chart.addSeriesAsDrilldown(e.point, {
+                                    name: e.point.name,
+                                    data: data,
+                                    events:{
+                                        show:function(){
+                                            alert(1);
+                                        }
+                                    },
+                                    dataLabels: {
+                                        enabled: true,
+                                        format: '{point.name}'
+                                    }
+                                });
+                            },
+                            error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+                            }
+                        });
+
+
+
+                        this.setTitle(null, { text: cname });
+                    },
+                    drillup: function () {
+                        this.setTitle(null, { text: '中国' });
+                    }
+                }
+            },
+
+            tooltip: {
+                formatter:function(){
+                    return this.point.name;
+
+                }
+            },
+            credits:{
+                href:"javascript:goHome()",
+                text:"www.peng8.net"
+            },
+            title : {
+                text : 'highmap中国内蒙古'
+            },
+
+            legend: small ? {} : {
+
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'middle'
+            },
+
+
+            mapNavigation: {
+                enabled: true,
+                buttonOptions: {
+                    verticalAlign: 'bottom'
+                }
+            },
+
+            plotOptions: {
+                map: {
+                    states: {
+                        hover: {
+                            color: '#EEDD66'
+                        }
+                    }
+                }
+            },
+
+            series : [{
+                data : group1,
+                name: '内蒙古',
+                dataLabels: {
+                    enabled: true,
+                    format: '{point.properties.cn-name}'
+                },
+            }],
+
+            drilldown: {
+
+                activeDataLabelStyle: {
+                    color: '#FFFFFF',
+                    textDecoration: 'none',
+                    textShadow: '0 0 3px #000000'
+                },
+                drillUpButton: {
+                    relativeTo: 'spacingBox',
+                    position: {
+                        x: 0,
+                        y: 60
+                    }
+                }
+            }
+        });
+
+
+
+    });
+
+
+    function goHome(){
+        window.open("http://www.peng8.net/");
+    }
+</script>
+
+</body>
+</html>
