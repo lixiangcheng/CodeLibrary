@@ -140,7 +140,7 @@
         </mvc:interceptor>
     </mvc:interceptors>
 
-    <bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping"/>
+    <!--<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping"/>-->
     <!--  <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter"/>-->
     <!--处理 @ResponseBody 中文乱码问题-->
     <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
@@ -167,13 +167,16 @@
         </property>
     </bean>
 
+    <!--视图解析器组-->
     <bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+        <!--根据客户提交的MimeType(如 text/html,application/xml)来跟服务端的一组viewResover的MimeType相比较,如果符合,即返回viewResover的数据-->
         <property name="mediaTypes">
             <map>
                 <entry key="html" value="text/html"/>
                 <entry key="json" value="application/json"/>
             </map>
         </property>
+        <!--我们常规使用的jsp解析器-->
         <property name="viewResolvers">
             <list>
                 <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -189,6 +192,7 @@
                 </bean>
             </list>
         </property>
+        <!--json解析器-->
         <property name="defaultViews">
             <list>
                 <bean class="org.springframework.web.servlet.view.json.MappingJacksonJsonView"/>
