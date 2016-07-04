@@ -32,24 +32,31 @@
     指定扫描控制器,其他同理.
     2.use-dafault-filter默认是打开的.如果使用1.必须设置为false
     -->
-    <context:component-scan base-package="com.lee.*.controller" use-default-filters="true"/>
+    <context:component-scan base-package="com.lee.business.**.controller"/>
 
     <!--主要注册了DefaultAnnotationHandlerMapping与AnnotationMethodHandlerAdapter 两个bean.
     还有其他诸多数据支持.
 
-    经过实验.不注册下面的配置,也是能正常访问的.具体有待后续考察.
+    经过实验.不注册下面的配置,也是能正常访问的.具体有待后续考察.2016-7-2
+    完了。考察失败。现在不写不能映射了。2016-7-4
     -->
-    <!--<mvc:annotation-driven/>-->
+    <mvc:annotation-driven/>
     <!--提供的视图解析器
         我们使用的是jsp所以使用InternalResourceViewResolver作为我们的视图解析器
     -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="viewClass">
+        <!--<property name="viewClass">
             <value>org.springframework.web.servlet.view.JstlView</value>
-        </property>
+        </property>-->
         <property name="prefix" value="/WEB-INF/jsp/"></property>
         <property name="suffix" value=".jsp"></property>
     </bean>
+
+    <!-- 这样根目录下面的resource的文件(.css,.js等)就不会被spring的DispatchServlet进行过滤  也可以设置缓存 -->
+    <mvc:resources mapping="/dist/**" location="/dist/" cache-period="86400"/>
+    <mvc:resources mapping="/highcharts/**" location="/highcharts/" cache-period="86400"/>
+    <mvc:resources mapping="/manageStyle/**" location="/manageStyle/" cache-period="86400"/>
+    <mvc:resources mapping="/reactjs/**" location="/reactjs/" cache-period="86400"/>
 
     <!--演示aop的原理-->
     <bean id="audience" class="com.lee.aop.Audience"/>

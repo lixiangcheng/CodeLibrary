@@ -19,7 +19,7 @@ public class Test {
         System.out.println(sdf.format(ca.getTime()));*/
 
 
-        String nickName = "∞≤±ÛŒ∞";
+        String nickName = "Â∞è";
         byte[] b_text = nickName.getBytes();
         System.out.println(b_text.length);
         for (int i = 0; i < b_text.length; i++)

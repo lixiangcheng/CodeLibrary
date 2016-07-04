@@ -11,18 +11,18 @@
     <!--初始化循序:context-param >> listener  >> fileter  >> servlet-->
 
     <!--1.在启动Web项目时，容器(比如Tomcat)会读web.xml配置文件中的两个节点<listener>和<contex-param>。-->
-    <!--表示用于加载Bean的配置文件-->
-    <context-param>
+    <!--表示用于加载Bean的配置文件
+     光添加listener是不行的。还是会去找applicationContext.xml。不写context-param会异常
+    -->
+    <context-param><!--整个应用使用的参数-->
         <param-name>contextConfigLocation</param-name>
         <param-value>
-            classpath:applicationContext.xml
+            classpath*:springmvc.xml
         </param-value>
     </context-param>
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
-
-
 
     <servlet>
         <!-- servlet名称，与servlet-mapping中的servlet-name必须一致 -->
@@ -31,7 +31,9 @@
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <!--为servlet提供初始化参数.
         在这里提供是为了servlet能定位到实际的文件位置,不然servlet默认在/WEB-INF/下面找-->
-        <init-param>
+        <init-param><!--当前Servlet使用的参数
+        不写默认访问/WEB-INF/DispatcherServlet-servlet.xml
+        -->
             <!--contextConfigLocation 名称不能变
             查看源代码,找到ContextLoaderListener 再跟踪到ContextLoader ,初始化WebApplicationContext 会使用到这个参数
             (在Listener调用到ContextLoaderListener时候才会初始化)-->

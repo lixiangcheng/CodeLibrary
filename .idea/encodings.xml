@@ -5,6 +5,7 @@
     <file url="file://$PROJECT_DIR$/src/main/java/com/lee/interceptor/PrefInterceptor.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/lee/interceptor/SqlInterceptor.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/lee/interceptor/SystemLogInterceptor.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/lee/util/ResultView.java" charset="UTF-8" />
     <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>

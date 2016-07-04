@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * ∑÷“≥¿‡
+ * page
  * Created by lixiangcheng on 16/4/23.
  */
 public class ResultView<T>
