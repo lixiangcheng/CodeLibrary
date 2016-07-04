@@ -32,7 +32,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="${pageContext.request.contextPath}/index">李志恒代码库</a>
+            <a class="navbar-brand" href="${pageContext.request.contextPath}/index.jsp">李志恒代码库</a>
         </div>
         <!-- /.navbar-header -->
 

@@ -8,6 +8,7 @@
     <div class="row">
         <div class="col-lg-12">
             <h1 class="page-header">欢迎来到我的代码库</h1>
+            <div>仅供个人使用</div>
         </div>
     </div>
 </div>
